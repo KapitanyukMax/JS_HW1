@@ -1,39 +1,10 @@
-//1
-let num = +prompt("Enter a digit");
-
-let symb;
-switch (num) {
-    case 1: symb = '!'; break;
-    case 2: symb = '@'; break;
-    case 3: symb = '#'; break;
-    case 4: symb = '$'; break;
-    case 5: symb = '%'; break;
-    case 6: symb = '^'; break;
-    case 7: symb = '&'; break;
-    case 8: symb = '*'; break;
-    case 9: symb = '('; break;
-    case 0: symb = ')'; break;
-    default: symb = '-'; break;
-}
-
-symb == '-' ? alert("Invalid input") : alert(`The special symbol on this key is ${symb}`);
-
-//2
-let year = +prompt("Enter any year");
-
-if (!Number.isInteger(year))
-    alert("Invalid input");
-
-alert(`The year ${year} is ${isLeap(year) ? "leap" : "not leap"}`);
+Problem1();
+Problem2();
+Problem3();
 
 function isLeap(year) {
     return year % 400 == 0 || year % 4 == 0 && year % 100 != 0;
 }
-
-//3
-let date = prompt("Enter a date in format dd/mm/yyyy");
-
-(nextDate = getNextDate(date)) ? alert(`The next date is ${nextDate}`) : alert("Invalid input");
 
 function getDaysInMonth(month, year) {
     switch (month) {
@@ -64,19 +35,57 @@ function isDateValid(day, month, year) {
     return day > 0 && day <= getDaysInMonth(month, year);
 }
 
-function getNextDate(date) {
-    let [dateDay, dateMonth, dateYear, ...rest] = date.split('/').map(elem => +elem);
+function Problem1() {
+    let digit = +prompt("Enter a digit");
 
-    if (!(dateDay && dateMonth && dateYear && rest.length == 0))
-        return null;
+    let symbol;
+    switch (digit) {
+        case 1: symbol = '!'; break;
+        case 2: symbol = '@'; break;
+        case 3: symbol = '#'; break;
+        case 4: symbol = '$'; break;
+        case 5: symbol = '%'; break;
+        case 6: symbol = '^'; break;
+        case 7: symbol = '&'; break;
+        case 8: symbol = '*'; break;
+        case 9: symbol = '('; break;
+        case 0: symbol = ')'; break;
+        default: alert("Invalid input"); return;
+    }
 
-    if (!isDateValid(dateDay, dateMonth, dateYear))
-        return null;
+    alert(`The special symbol on this key is ${symbol}`);
+}
 
-    if (dateDay != getDaysInMonth(dateMonth, dateYear))
-        return `${++dateDay}/${dateMonth}/${dateYear}`;
-    else if (dateMonth != 12)
-        return `01/${++dateMonth}/${dateYear}`;
+function Problem2() {
+    let year = +prompt("Enter any year");
+
+    if (!Number.isInteger(year))
+        alert("Invalid input");
+
+    alert(`The year ${year} is ${isLeap(year) ? "leap" : "not leap"}`);
+}
+
+function Problem3() {
+    let date = prompt("Enter a date in format dd/mm/yyyy");
+    let [day, month, year, ...rest] = date.split('/').map(elem => +elem);
+
+    if (!(day && month && year && rest.length == 0)) {
+        alert("Invalid date format");
+        return;
+    }
+
+    if (!isDateValid(day, month, year)) {
+        alert("Invalid date");
+        return;
+    }
+
+    let nextDate;
+    if (day != getDaysInMonth(month, year))
+        nextDate = `${++day}/${month}/${year}`;
+    else if (month != 12)
+        nextDate = `01/${++month}/${year}`;
     else
-        return `01/01/${++dateYear}`;
+        nextDate = `01/01/${++year}`;
+    
+    alert(`The next date is ${nextDate}`);
 }

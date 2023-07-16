@@ -1,21 +1,34 @@
-//1
-const currentYear = 2023;
+Problem1();
+Problem2();
 
-let year = +prompt("Enter your birth year");
-if (year > +0 && year <= currentYear) {
-    let age = currentYear - year;
-    alert(`Your age is ${age}`);
+function Problem1() {
+    const currentYear = 2023;
+
+    let year = +prompt("Enter your birth year");
+
+    if (!Number.isFinite(year) || year <= 0 || year > currentYear) {
+        alert("Invalid year");
+        return;
+    }
+
+    alert(`Your age is ${currentYear - year}`);
 }
-else
-    alert("Invalid input");
 
-//2
-const fileSize = 820;
+function Problem2() {
+    const fileSize = 820;
 
-let fullSize = prompt("Enter you flash drive size in GB") * 1024;
-if (fullSize >= 0) {
+    let fullSize = prompt("Enter you flash drive size in GB") * 1024;
+
+    if (!Number.isFinite(fullSize)) {
+        alert("Not a number");
+        return;
+    }
+
+    if (fullSize < 0) {
+        alert("Flash drive size cannot be negative");
+        return;
+    }
+
     let filesNumber = Math.floor(fullSize / fileSize);
     alert(`Your flash drive can contain ${filesNumber} file(s) with size ${fileSize} MB`);
 }
-else
-    alert("Invalid input!");
